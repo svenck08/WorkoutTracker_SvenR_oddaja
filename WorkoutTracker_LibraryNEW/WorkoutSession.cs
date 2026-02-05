@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WorkoutTracker_LibraryNEW
 {
- public class WorkoutSession
+ public class WorkoutSession : IHasVolume 
     {
         public DateTime StartTime { get; set; }
         public bool IsRunning { get; set; }
@@ -18,7 +18,14 @@ namespace WorkoutTracker_LibraryNEW
         private DateTime _start;
         private TimeSpan _pausedTotal = TimeSpan.Zero;
         private DateTime _pauseStart;
-
+        public SetEntry this[int i] //indekser
+        {
+            get { return Sets[i]; }
+        }
+        public TrainingVolume GetVolume()// indekser
+        {
+            return TotalVolume;
+        }
         public string DurationText
         {
             get
