@@ -170,33 +170,17 @@ namespace WorkoutTrackerNEW
         }
         private void RefreshStatsUI()
         {
-            SetEntry best = null;
-            TrainingVolume vol7 = new TrainingVolume(0);
-            TrainingVolume vol30 = new TrainingVolume(0);
-            DateTime from7 = DateTime.Today.AddDays(-7);
-            DateTime from30 = DateTime.Today.AddDays(-30);
 
-            for (int i = 0; i < savedSessions.Count; i++)
-            {
-                WorkoutSession ws = savedSessions[i];
-                if (ws.StartTime >= from7) vol7 += ws.TotalVolume;
-                if (ws.StartTime >= from30) vol30 += ws.TotalVolume;
-                for (int j = 0; j < ws.Sets.Count; j++)
-                {
-                    SetEntry s = ws.Sets[j];
-                    if (best == null || s.Kg > best.Kg) best = s;
-                }
-            }
-
-            if (best == null)
-                label9.Text = "PR: /";
-            else
-                label9.Text = "PR: " + best.ExerciseName + " " + best.Kg + "kg x " + best.Reps;
-
-            lblStat.Text =
-                "Volumen 7 dni: " + vol7.ToString() + Environment.NewLine +//console new line kao
-                "Volumen 30 dni: " + vol30.ToString() + Environment.NewLine +
-                "Treningov: " + savedSessions.Count;
+            List<StatRule> rules = new List<StatRule>();
+            rules.Add(new Rule_BestPR());
+            rules.Add(new Rule_VolumeLastDays(7));
+            rules.Add(new Rule_VolumeLastDays(30));   
+            label9.Text = rules[0].Compute(savedSessions);
+            string text = "";
+            text += rules[1].Compute(savedSessions) + Environment.NewLine;
+            text += rules[2].Compute(savedSessions) + Environment.NewLine;
+            text += "Treningov: " + savedSessions.Count;
+            label10.Text = text;
         }
 
         private void btnStart_Click(object sender, EventArgs e)
