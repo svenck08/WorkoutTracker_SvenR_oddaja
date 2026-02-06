@@ -9,12 +9,10 @@ namespace WorkoutTracker_LibraryNEW
     public class Rule_VolumeLastDays : StatRule
     {
         private int _days;
-
         public Rule_VolumeLastDays(int days)
         {
             _days = days;
         }
-
         public override string Title => "Volumen " + _days + " dni";
 
         public override string Compute(List<WorkoutSession> sessions)
@@ -30,7 +28,6 @@ namespace WorkoutTracker_LibraryNEW
                     sum = sum + sessions[i].GetVolume();
                 }
             }
-
             return "Volumen " + _days + " dni: " + sum.ToString();
         }
     }

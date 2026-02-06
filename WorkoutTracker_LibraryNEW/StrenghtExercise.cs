@@ -11,6 +11,7 @@ namespace WorkoutTracker_LibraryNEW
         public StrengthExercise(string name, string device, List<string> muscles)
             : base(name, device, ExerciseType.Moc, muscles)
         {
+
         }
     }
 }

@@ -18,7 +18,6 @@ namespace WorkoutTracker_LibraryNEW
         {
             return new TrainingVolume(a.Value + b.Value);
         }
-
         public override string ToString()
         {
             return Value.ToString("0");

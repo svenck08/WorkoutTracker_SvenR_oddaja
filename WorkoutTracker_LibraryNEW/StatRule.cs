@@ -10,5 +10,6 @@ namespace WorkoutTracker_LibraryNEW
     {
         public abstract string Title { get; }
         public abstract string Compute(List<WorkoutSession> sessions);
+
     }
 }
