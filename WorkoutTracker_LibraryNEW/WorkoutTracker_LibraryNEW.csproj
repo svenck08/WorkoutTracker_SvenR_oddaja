@@ -41,13 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RuleBestPR.cs" />
+    <Compile Include="IhasVolume.cs" />
     <Compile Include="Exercise.cs" />
     <Compile Include="ExerciseType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetEntry.cs" />
+    <Compile Include="StatRule.cs" />
     <Compile Include="Stats.cs" />
     <Compile Include="StrenghtExercise.cs" />
     <Compile Include="TrainingVolume.cs" />
+    <Compile Include="VolumenZadnjiDnevi.cs" />
     <Compile Include="WorkoutSession.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

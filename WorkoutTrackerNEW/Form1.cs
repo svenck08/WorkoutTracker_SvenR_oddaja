@@ -180,7 +180,7 @@ namespace WorkoutTrackerNEW
             text += rules[1].Compute(savedSessions) + Environment.NewLine;
             text += rules[2].Compute(savedSessions) + Environment.NewLine;
             text += "Treningov: " + savedSessions.Count;
-            label10.Text = text;
+            lblStat.Text = text;
         }
 
         private void btnStart_Click(object sender, EventArgs e)
