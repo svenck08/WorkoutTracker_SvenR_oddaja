@@ -1,1 +1,1 @@
-Program ima sedaj 4 male errorje ki jih se nisem cisto razresil nekaj povezano z dedovanje bo reseno kmalu
+Nazadnje so bili razreseni vsi problemi oz. errorji program deluje kot mora ter vsebuje vse zahtevane stvari za fazo2.
