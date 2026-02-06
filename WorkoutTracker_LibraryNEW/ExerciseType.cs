@@ -11,5 +11,6 @@ namespace WorkoutTracker_LibraryNEW
         Moc,
         Kardio,
         Regeneracija
+            // naredi z objekti
     }  
 }

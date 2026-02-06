@@ -52,7 +52,8 @@ namespace WorkoutTracker_LibraryNEW
         }
         ~Exercise()
         {
-            //nise v uporabi
+            // naredi destruktor pri vaji
+            //popravci celo vajo dodaj objekte.
         }
     }
 }
