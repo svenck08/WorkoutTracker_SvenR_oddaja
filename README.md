@@ -1,1 +1,1 @@
-Nazadnje so bili razreseni vsi problemi oz. errorji program deluje kot mora ter vsebuje vse zahtevane stvari za fazo2.
+Nazadnje so bili razreseni vsi problemi oz. errorji program deluje kot mora ter vsebuje vse zahtevane stvari za fazo2. Trenutno se osredotočam na dodajanje vsebine faze 3.
