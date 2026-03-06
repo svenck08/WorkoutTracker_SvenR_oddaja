@@ -25,7 +25,7 @@ namespace WorkoutTracker_LibraryNEW
                 if (sessions[i].StartTime >= from)
                 {
                     // uporaba VMESNIKA
-                    sum = sum + sessions[i].GetVolume();
+                    sum = sum + sessions[i].GetVolume();//dostop do objekta
                 }
             }
             return "Volumen " + _days + " dni: " + sum.ToString();

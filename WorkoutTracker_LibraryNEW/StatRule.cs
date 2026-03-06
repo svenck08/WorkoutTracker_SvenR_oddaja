@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WorkoutTracker_LibraryNEW
-{
+{ // definirani abstraktni razredi
     public abstract class StatRule
     {
         public abstract string Title { get; }

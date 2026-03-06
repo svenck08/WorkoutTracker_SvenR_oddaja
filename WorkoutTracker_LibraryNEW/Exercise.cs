@@ -8,8 +8,8 @@ namespace WorkoutTracker_LibraryNEW
 {
     public class Exercise
     {
-        public const int MinNameLength = 2;
-        private static int _nextId = 1;
+        public const int MinNameLength = 2; //konstanta
+        private static int _nextId = 1; //statičen int
         public readonly DateTime CreatedAt;
 
         public int Id { get; set; }
@@ -40,7 +40,7 @@ namespace WorkoutTracker_LibraryNEW
             Name = name;
             Device = device;
             Type = type;
-            Muscles = muscles;
+            Muscles = muscles; //objekt seznama
         }
         public static void ResetIds()
         {
@@ -52,8 +52,7 @@ namespace WorkoutTracker_LibraryNEW
         }
         ~Exercise()
         {
-            // naredi destruktor pri vaji
-            //popravci celo vajo dodaj objekte.
+            // naredi destruktor pri vaji        
         }
     }
 }

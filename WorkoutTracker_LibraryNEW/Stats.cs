@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WorkoutTracker_LibraryNEW
-{
+{// statični clasi
     public static class Stats
     {
         public static double VolumeLastDays(List<WorkoutSession> sessions, int days)
@@ -20,7 +20,7 @@ namespace WorkoutTracker_LibraryNEW
             }
             return sum;
         }
-        public static SetEntry BestPR_ByKg(List<WorkoutSession> sessions)
+        public static SetEntry BestPR_ByKg(List<WorkoutSession> sessions) //referenca na objekt
         {
             SetEntry best = null;
             for (int i = 0; i < sessions.Count; i++)

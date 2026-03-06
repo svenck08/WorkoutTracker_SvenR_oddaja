@@ -16,7 +16,7 @@ namespace WorkoutTracker_LibraryNEW
         }
         public static TrainingVolume operator +(TrainingVolume a, TrainingVolume b)
         {
-            return new TrainingVolume(a.Value + b.Value);
+            return new TrainingVolume(a.Value + b.Value);// vsakic se ustvari nov objekt, tipa TrainingVolume
         }
         public override string ToString()
         {

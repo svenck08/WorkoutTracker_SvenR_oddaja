@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WorkoutTracker_LibraryNEW
-{
+{//razred,dedovanje ter konstruktor
     public class StrengthExercise : Exercise
     {
         public StrengthExercise(string name, string device, List<string> muscles)

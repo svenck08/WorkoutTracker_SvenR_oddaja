@@ -13,7 +13,7 @@ namespace WorkoutTracker_LibraryNEW
         public bool IsRunning { get; set; }
         public bool IsPaused { get; set; }
 
-        public List<SetEntry> Sets { get; set; } = new List<SetEntry>();
+        public List<SetEntry> Sets { get; set; } = new List<SetEntry>(); //objekt, ki hrani podatke o setih
 
         private DateTime _start;
         private TimeSpan _pausedTotal = TimeSpan.Zero;
@@ -22,7 +22,7 @@ namespace WorkoutTracker_LibraryNEW
         {
             get { return Sets[i]; }
         }
-        public TrainingVolume GetVolume()// indekser
+        public TrainingVolume GetVolume()// objekt, indekser
         {
             return TotalVolume;
         }
