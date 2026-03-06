@@ -12,11 +12,11 @@ namespace WorkoutTracker_LibraryNEW
 
         public override string Compute(List<WorkoutSession> sessions)
         {
-            SetEntry best = null;
+            SetEntry best = null; //objekt, ki bo hranil najboljši set
 
             for (int i = 0; i < sessions.Count; i++)
             {
-                WorkoutSession ws = sessions[i];
+                WorkoutSession ws = sessions[i]; //objekt trenutne seje
 
                 for (int j = 0; j < ws.Sets.Count; j++)
                 {
@@ -29,7 +29,7 @@ namespace WorkoutTracker_LibraryNEW
             }
 
             if (best == null) return "PR: /";
-            return "PR: " + best.ExerciseName + " " + best.Kg + "kg x " + best.Reps;
+            return "PR: " + best.ExerciseName + " " + best.Kg + "kg x " + best.Reps; //izpis podatkov iz objektov.
         }
     }
 }

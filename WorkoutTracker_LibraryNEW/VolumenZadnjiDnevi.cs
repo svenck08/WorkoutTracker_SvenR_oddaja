@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WorkoutTracker_LibraryNEW
 {
-    public class Rule_VolumeLastDays : StatRule
+    public class Rule_VolumeLastDays : StatRule //polimorfizem
     {
         private int _days;
         public Rule_VolumeLastDays(int days)

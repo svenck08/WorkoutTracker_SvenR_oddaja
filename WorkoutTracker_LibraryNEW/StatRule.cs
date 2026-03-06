@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WorkoutTracker_LibraryNEW
-{ // definirani abstraktni razredi
+{ // definirani abstraktni razredi, preidejo v polimorfizem Rule_BestPR, Rule_VolumeLastDays
     public abstract class StatRule
     {
         public abstract string Title { get; }
