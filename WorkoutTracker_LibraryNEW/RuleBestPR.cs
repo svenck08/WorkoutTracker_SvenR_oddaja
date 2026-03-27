@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WorkoutTracker_LibraryNEW
-{
+{// objekt je tu
     public class Rule_BestPR : StatRule
     {
         public override string Title => "PR";
@@ -16,7 +16,7 @@ namespace WorkoutTracker_LibraryNEW
 
             for (int i = 0; i < sessions.Count; i++)
             {
-                WorkoutSession ws = sessions[i]; //objekt trenutne seje
+                WorkoutSession ws = sessions[i]; //objekt 
 
                 for (int j = 0; j < ws.Sets.Count; j++)
                 {

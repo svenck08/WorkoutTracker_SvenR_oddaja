@@ -12,11 +12,11 @@ namespace WorkoutTracker_LibraryNEW
         private static int _nextId = 1; //statičen int
         public readonly DateTime CreatedAt;
 
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Device { get; set; }
-        public ExerciseType Type { get; set; }
-        public List<string> Muscles { get; set; }
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+        public string Device { get; private set; }
+        public ExerciseType Type { get; private set; }
+        public List<string> Muscles { get; private set; }
 
         public Exercise(string name, string device, ExerciseType type, List<string> muscles)
         {
@@ -52,7 +52,7 @@ namespace WorkoutTracker_LibraryNEW
         }
         ~Exercise()
         {
-            // naredi destruktor pri vaji        
+            Console.WriteLine("Exercise objekt uničen: " + Name);
         }
     }
 }

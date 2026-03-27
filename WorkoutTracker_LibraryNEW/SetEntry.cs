@@ -8,11 +8,11 @@ namespace WorkoutTracker_LibraryNEW
 {
     public class SetEntry
     {
-        public string ExerciseName { get; set; }
-        public double Kg { get; set; }
-        public int Reps { get; set; }
-        public int RPE { get; set; }
-        public DateTime Time { get; set; }
+        public string ExerciseName { get; private set; }
+        public double Kg { get; private set; }
+        public int Reps { get; private set; }
+        public int RPE { get; private set; }
+        public DateTime Time { get; private set; }
 
         public double VolumeValue
         {

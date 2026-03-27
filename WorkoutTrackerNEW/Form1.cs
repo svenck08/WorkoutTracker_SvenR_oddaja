@@ -183,13 +183,25 @@ namespace WorkoutTrackerNEW
             lblStat.Text = text;
         }
 
+        private void WorkoutEvent_Handler(WorkoutSession session, string message)
+        {
+            lblStatus.Text = message;
+            RefreshWorkoutUI();
+        }
+
         private void btnStart_Click(object sender, EventArgs e)
         {
             active = new WorkoutSession();
+
+            active.OnSetAdded += WorkoutEvent_Handler;
+            active.OnWorkoutStarted += WorkoutEvent_Handler;
+            active.OnWorkoutEnded += WorkoutEvent_Handler;
+            active.OnWorkoutPaused += WorkoutEvent_Handler;
+            active.OnWorkoutResumed += WorkoutEvent_Handler;
+
             active.Start();
-            timer1.Start();         
+            timer1.Start();
             RefreshWorkoutUI();
-            lblStatus.Text = "Trening se je začel.";
         }
         private void btnPause_Click(object sender, EventArgs e)
         {
@@ -229,10 +241,9 @@ namespace WorkoutTrackerNEW
                 int rpe = (int)numRPE.Value;
 
                 SetEntry set = new SetEntry(ex.Name, kg, reps, rpe);
-                active.Sets.Add(set);
+                active.AddSet(set);
 
                 RefreshWorkoutUI();
-                lblStatus.Text = "Set dodan.";
             }
             catch (Exception exx)
             {
@@ -271,14 +282,16 @@ namespace WorkoutTrackerNEW
             }
             try
             {
-                Exercise selected = exercises[clbMisice.SelectedIndex];
-                string name = tbImeVaje.Text;
-                string device = cbNaprava.Text;
-                ExerciseType type = GetSelectedType();
-                List<string> muscles = GetSelectedMuscles();
-                selected.Update(name, device, type, muscles);
+                int index = clbMisice.SelectedIndex;
+                if (index < 0 || index >= exercises.Count)
+                {
+                    MessageBox.Show("Napačen izbor.");
+                    return;
+                }
+                string name = exercises[index].Name;
+                exercises.RemoveAt(index);
                 RefreshExerciseUI();
-                lblStatus.Text = "Vaja posodobljena.";
+                lblStatus.Text = "Vaja izbrisana: " + name;
             }
             catch (Exception exx)
             {
@@ -325,6 +338,11 @@ namespace WorkoutTrackerNEW
             savedSessions.RemoveAt(idx);
             lblStatus.Text = "Trening izbrisan.";
             RefreshSavedUI();
+        }
+
+        private void Statistika_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
