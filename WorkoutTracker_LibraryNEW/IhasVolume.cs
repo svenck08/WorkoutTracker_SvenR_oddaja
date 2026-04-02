@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace WorkoutTracker_LibraryNEW
 {
+    // vmesnik — implementirajo ga WorkoutSession in SetEntry
     public interface IHasVolume
     {
         TrainingVolume GetVolume();

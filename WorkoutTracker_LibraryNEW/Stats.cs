@@ -5,9 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WorkoutTracker_LibraryNEW
-{// statični clasi
+{
+    // staticen razred — nima stanja, samo staticne metode za statistike
     public static class Stats
     {
+        // staticna metoda — izracun volumna za zadnjih N dni
         public static double VolumeLastDays(List<WorkoutSession> sessions, int days)
         {
             double sum = 0;
@@ -20,9 +22,10 @@ namespace WorkoutTracker_LibraryNEW
             }
             return sum;
         }
-        public static SetEntry BestPR_ByKg(List<WorkoutSession> sessions) //referenca na objekt
+        // staticna metoda — vrne referenca na objekt SetEntry z najvisjo tezo
+        public static SetEntry BestPR_ByKg(List<WorkoutSession> sessions)
         {
-            SetEntry best = null;
+            SetEntry best = null; // referenca na objekt
             for (int i = 0; i < sessions.Count; i++)
             {
                 for (int j = 0; j < sessions[i].Sets.Count; j++)

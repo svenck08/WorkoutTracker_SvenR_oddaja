@@ -6,18 +6,27 @@ using System.Threading.Tasks;
 
 namespace WorkoutTracker_LibraryNEW
 {
-    public class SetEntry
+    // vmesnik IHasVolume — implementirajo ga SetEntry IN WorkoutSession (dva razreda)
+    public class SetEntry : IHasVolume
     {
+        // kapsulacija — private set prepreci spreminjanje od zunaj
         public string ExerciseName { get; private set; }
         public double Kg { get; private set; }
         public int Reps { get; private set; }
         public int RPE { get; private set; }
         public DateTime Time { get; private set; }
 
+        // lastnost z logiko v getterju — izracun volumna seta
         public double VolumeValue
         {
             get { return Kg * Reps; }
         }
+        // implementacija vmesnika IHasVolume
+        public TrainingVolume GetVolume()
+        {
+            return new TrainingVolume(Kg * Reps);
+        }
+        // konstruktor z validacijo — preverja pravilnost vhodnih podatkov
         public SetEntry(string exerciseName, double kg, int reps, int rpe)
         {
             if (exerciseName == null || exerciseName.Trim().Length == 0)

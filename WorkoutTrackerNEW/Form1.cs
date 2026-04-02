@@ -8,10 +8,12 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+// uporaba lastne knjiznice (Class Library)
 using WorkoutTracker_LibraryNEW;
 
 namespace WorkoutTrackerNEW
 {
+    // graficni uporabniski vmesnik — ena forma za celotno aplikacijo
     public partial class Statistika : Form
     {
         private WorkoutSession active = null;
@@ -171,11 +173,12 @@ namespace WorkoutTrackerNEW
         private void RefreshStatsUI()
         {
 
+            // polimorfizem — lista baznega tipa StatRule, razlicne implementacije
             List<StatRule> rules = new List<StatRule>();
             rules.Add(new Rule_BestPR());
             rules.Add(new Rule_VolumeLastDays(7));
-            rules.Add(new Rule_VolumeLastDays(30));   
-            label9.Text = rules[0].Compute(savedSessions);
+            rules.Add(new Rule_VolumeLastDays(30));
+            label9.Text = rules[0].Compute(savedSessions); // polimorficni klic
             string text = "";
             text += rules[1].Compute(savedSessions) + Environment.NewLine;
             text += rules[2].Compute(savedSessions) + Environment.NewLine;
@@ -183,6 +186,7 @@ namespace WorkoutTrackerNEW
             lblStat.Text = text;
         }
 
+        // handler za dogodke — klice se ob prozenju eventov iz WorkoutSession
         private void WorkoutEvent_Handler(WorkoutSession session, string message)
         {
             lblStatus.Text = message;
@@ -193,6 +197,7 @@ namespace WorkoutTrackerNEW
         {
             active = new WorkoutSession();
 
+            // narocanje na dogodke (events) — povezava delegata z handler metodo
             active.OnSetAdded += WorkoutEvent_Handler;
             active.OnWorkoutStarted += WorkoutEvent_Handler;
             active.OnWorkoutEnded += WorkoutEvent_Handler;
@@ -242,6 +247,12 @@ namespace WorkoutTrackerNEW
 
                 SetEntry set = new SetEntry(ex.Name, kg, reps, rpe);
                 active.AddSet(set);
+
+                // dedovanje — ce je vaja tipa StrengthExercise, posodobi 1RM
+                if (ex is StrengthExercise strengthEx)
+                {
+                    strengthEx.UpdateOneRepMax(kg, reps);
+                }
 
                 RefreshWorkoutUI();
             }

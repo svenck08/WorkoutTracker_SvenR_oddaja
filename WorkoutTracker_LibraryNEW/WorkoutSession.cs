@@ -7,16 +7,21 @@ using System.Threading.Tasks;
 
 namespace WorkoutTracker_LibraryNEW
 {
-    // Lasten delegat (Faza 3)
+    // lasten delegat — lastna signatura za dogodke treninga
     public delegate void WorkoutEventHandler(WorkoutSession session, string message);
+
+    // WorkoutSession implementira vmesnik IHasVolume
     public class WorkoutSession : IHasVolume
     {
         public DateTime StartTime { get; private set; }
         public bool IsRunning { get; private set; }
         public bool IsPaused { get; private set; }
 
-        public List<SetEntry> Sets { get; private set; } = new List<SetEntry>();
+        // kapsulacija — privatna lista, navzven samo IReadOnlyList (brez moznosti dodajanja mimo AddSet)
+        private List<SetEntry> _sets = new List<SetEntry>();
+        public IReadOnlyList<SetEntry> Sets => _sets.AsReadOnly();
 
+        // dogodki (events) — uporaba lastnega delegata WorkoutEventHandler
         public event WorkoutEventHandler OnSetAdded;
         public event WorkoutEventHandler OnWorkoutStarted;
         public event WorkoutEventHandler OnWorkoutEnded;
@@ -26,16 +31,19 @@ namespace WorkoutTracker_LibraryNEW
         private TimeSpan _pausedTotal = TimeSpan.Zero;
         private DateTime _pauseStart;
 
+        // indekser — dostop do setov kot session[0], session[1] ...
         public SetEntry this[int i]
         {
-            get { return Sets[i]; }
+            get { return _sets[i]; }
         }
 
+        // implementacija vmesnika IHasVolume
         public TrainingVolume GetVolume()
         {
             return TotalVolume;
         }
 
+        // lastnost z logiko v getterju — izracun trajanja treninga
         public string DurationText
         {
             get
@@ -47,24 +55,26 @@ namespace WorkoutTracker_LibraryNEW
             }
         }
 
+        // lastnost z logiko v getterju — izracun celotnega volumna
         public TrainingVolume TotalVolume
         {
             get
             {
                 TrainingVolume sum = new TrainingVolume(0);
-                for (int i = 0; i < Sets.Count; i++)
+                for (int i = 0; i < _sets.Count; i++)
                 {
-                    double v = Sets[i].Kg * Sets[i].Reps;
+                    double v = _sets[i].Kg * _sets[i].Reps;
                     sum = sum + new TrainingVolume(v);
                 }
                 return sum;
             }
         }
 
+        // objektna metoda — doda set in sprozi event OnSetAdded
         public void AddSet(SetEntry set)
         {
-            Sets.Add(set);
-            OnSetAdded?.Invoke(this, "Dodan set: " + set.ExerciseName + " " + set.Kg + "kg x " + set.Reps);
+            _sets.Add(set);
+            OnSetAdded?.Invoke(this, "Dodan set: " + set.ExerciseName + " " + set.Kg + "kg x " + set.Reps); // prozenje dogodka
         }
 
         public void Start()
