@@ -36,6 +36,20 @@ namespace WorkoutTracker_LibraryNEW
         {
             get { return _sets[i]; }
         }
+        // indekser po imenu vaje (string) — smiseln ker iscemo sete po imenu vaje, ne samo po poziciji
+        // npr. session["Bench Press"] vrne prvi set za to vajo
+        public SetEntry this[string exerciseName]
+        {
+            get
+            {
+                for (int i = 0; i < _sets.Count; i++)
+                {
+                    if (_sets[i].ExerciseName == exerciseName)
+                        return _sets[i];
+                }
+                throw new KeyNotFoundException($"Set za vajo '{exerciseName}' ne obstaja v tej seji.");
+            }
+        }
 
         // implementacija vmesnika IHasVolume
         public TrainingVolume GetVolume()

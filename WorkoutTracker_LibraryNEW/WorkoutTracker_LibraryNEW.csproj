@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardioExercise.cs" />
     <Compile Include="RuleBestPR.cs" />
     <Compile Include="IhasVolume.cs" />
     <Compile Include="Exercise.cs" />

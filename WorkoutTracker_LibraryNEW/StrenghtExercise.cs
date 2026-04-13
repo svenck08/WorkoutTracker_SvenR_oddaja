@@ -27,6 +27,13 @@ namespace WorkoutTracker_LibraryNEW
             if (estimated > OneRepMax)
                 OneRepMax = estimated;
         }
+        // polimorfizem — StrengthExercise izpise 1RM podatek, ki ga CardioExercise nima
+        public override string IzpisPodrobnosti()
+        {
+            string s = base.IzpisPodrobnosti();
+            s += $"\n  1RM: {(OneRepMax > 0 ? OneRepMax.ToString("0.0") + " kg" : "ni podatkov")}";
+            return s;
+        }
 
         // override ToString — polimorfizem na nivoju Exercise
         public override string ToString()

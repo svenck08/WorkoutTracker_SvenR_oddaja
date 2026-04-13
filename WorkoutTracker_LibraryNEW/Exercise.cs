@@ -75,6 +75,11 @@ namespace WorkoutTracker_LibraryNEW
         {
             return $"{Name} ({Type}, {Device})";
         }
+        // virtualna metoda za polimorfizem — vsak podrazred izpise drugacne podrobnosti
+        public virtual string IzpisPodrobnosti()
+        {
+            return $"Vaja: {Name}, Naprava: {Device}, Tip: {Type}, Misice: {string.Join(", ", Muscles)}";
+        }
         // destruktor — klice se ob garbage collection
         ~Exercise()
         {
