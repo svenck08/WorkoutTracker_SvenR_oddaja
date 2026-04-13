@@ -11,9 +11,28 @@ namespace WorkoutTracker_LibraryNEW
     {
         // kapsulacija — private set prepreci spreminjanje od zunaj
         public string ExerciseName { get; private set; }
-        public double Kg { get; private set; }
+        private double _kg;
+        public double Kg
+        {
+            get { return _kg; }
+            private set
+            {
+                if (value < 0) throw new Exception("Teža ne sme biti negativna.");
+                _kg = value;
+            }
+        }
         public int Reps { get; private set; }
-        public int RPE { get; private set; }
+        private int _rpe;
+        public int RPE
+        {
+            get { return _rpe; }
+            private set
+            {
+                if (value < 1 || value > 10)
+                    throw new Exception("RPE mora biti med 1 in 10.");
+                _rpe = value;
+            }
+        }
         public DateTime Time { get; private set; }
 
         // lastnost z logiko v getterju — izracun volumna seta
@@ -31,13 +50,11 @@ namespace WorkoutTracker_LibraryNEW
         {
             if (exerciseName == null || exerciseName.Trim().Length == 0)
                 throw new Exception("Vaja ni izbrana.");
-            if (kg < 0) throw new Exception("Kg ne sme biti negativno.");
             if (reps <= 0) throw new Exception("Reps mora biti > 0.");
-            if (rpe < 1 || rpe > 10) throw new Exception("RPE mora biti 1–10.");
             ExerciseName = exerciseName;
-            Kg = kg;
+            Kg = kg;       // validacija se zgodi v setterju
             Reps = reps;
-            RPE = rpe;
+            RPE = rpe;     // validacija se zgodi v setterju
             Time = DateTime.Now;
         }
     }

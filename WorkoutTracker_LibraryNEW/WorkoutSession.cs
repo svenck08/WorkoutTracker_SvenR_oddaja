@@ -9,6 +9,8 @@ namespace WorkoutTracker_LibraryNEW
 {
     // lasten delegat — lastna signatura za dogodke treninga
     public delegate void WorkoutEventHandler(WorkoutSession session, string message);
+    // drugi lasten delegat — specificen za opozorila o preobremenitvi
+    public delegate void PreobremenitevHandler(SetEntry set, string opozorilo);
 
     // WorkoutSession implementira vmesnik IHasVolume
     public class WorkoutSession : IHasVolume
@@ -16,7 +18,9 @@ namespace WorkoutTracker_LibraryNEW
         public DateTime StartTime { get; private set; }
         public bool IsRunning { get; private set; }
         public bool IsPaused { get; private set; }
-
+        // dogodek za opozorilo o preobremenitvi — sprozi se ko je RPE >= 9
+        // GUI se naroči na ta event in prikaže opozorilo uporabniku
+        public event PreobremenitevHandler OnPreobremenitev;
         // kapsulacija — privatna lista, navzven samo IReadOnlyList (brez moznosti dodajanja mimo AddSet)
         private List<SetEntry> _sets = new List<SetEntry>();
         public IReadOnlyList<SetEntry> Sets => _sets.AsReadOnly();
@@ -84,13 +88,19 @@ namespace WorkoutTracker_LibraryNEW
             }
         }
 
-        // objektna metoda — doda set in sprozi event OnSetAdded
         public void AddSet(SetEntry set)
         {
             _sets.Add(set);
-            OnSetAdded?.Invoke(this, "Dodan set: " + set.ExerciseName + " " + set.Kg + "kg x " + set.Reps); // prozenje dogodka
-        }
+            OnSetAdded?.Invoke(this, "Dodan set: " + set.ExerciseName + " " + set.Kg + "kg x " + set.Reps);
 
+            // preverimo ali je RPE kritičen (9 ali 10) — opozorilo za preobremenitev
+            if (set.RPE >= 9)
+            {
+                OnPreobremenitev?.Invoke(set,
+                    "OPOZORILO: Visok RPE (" + set.RPE + ") pri vaji " + set.ExerciseName +
+                    "! Priporočam daljši odmor ali zmanjšanje teže.");
+            }
+        }
         public void Start()
         {
             StartTime = DateTime.Now;

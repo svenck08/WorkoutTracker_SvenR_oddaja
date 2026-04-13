@@ -112,11 +112,16 @@ namespace WorkoutTrackerNEW
             string name = tbImeVaje.Text;
             string device = cbNaprava.Text;
             List<string> muscles = GetSelectedMuscles();
-            if (rdMoc.Checked)
-                return new StrengthExercise(name, device, muscles);
             ExerciseType type = GetSelectedType();
-            return new Exercise(name, device, type, muscles);
-        }      
+
+            // dedovanje na dve veji — ustvarimo ustrezen podrazred glede na tip
+            if (type == ExerciseType.Moc)
+                return new StrengthExercise(name, device, muscles);
+            else if (type == ExerciseType.Kardio)
+                return new CardioExercise(name, device, muscles);
+            else
+                return new Exercise(name, device, type, muscles);
+        }
         private void RefreshExerciseUI()
         {
             dgvVaje.AutoGenerateColumns = true;
@@ -203,7 +208,6 @@ namespace WorkoutTrackerNEW
             active.OnWorkoutEnded += WorkoutEvent_Handler;
             active.OnWorkoutPaused += WorkoutEvent_Handler;
             active.OnWorkoutResumed += WorkoutEvent_Handler;
-
             active.Start();
             timer1.Start();
             RefreshWorkoutUI();
@@ -215,6 +219,14 @@ namespace WorkoutTrackerNEW
             if (active.IsPaused) active.Resume();
             else active.Pause();
             RefreshWorkoutUI();
+        }
+        // handler za dogodek preobremenitve — prikazemo rdece opozorilo in MessageBox
+        private void Preobremenitev_Handler(SetEntry set, string opozorilo)
+        {
+            lblStatus.Text = opozorilo;
+            lblStatus.ForeColor = Color.Red;
+            MessageBox.Show(opozorilo, "Opozorilo — visok RPE!",
+                MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
         private void btnEnd_Click(object sender, EventArgs e)
         {
@@ -248,13 +260,16 @@ namespace WorkoutTrackerNEW
                 SetEntry set = new SetEntry(ex.Name, kg, reps, rpe);
                 active.AddSet(set);
 
-                // dedovanje — ce je vaja tipa StrengthExercise, posodobi 1RM
+                // dedovanje + polimorfizem — razlicno obnasanje glede na tip vaje
                 if (ex is StrengthExercise strengthEx)
                 {
                     strengthEx.UpdateOneRepMax(kg, reps);
                 }
-
-                RefreshWorkoutUI();
+                else if (ex is CardioExercise cardioEx)
+                {
+                    // za kardio vaje posodobimo razdaljo (kg polje uporabimo kot razdaljo v km)
+                    cardioEx.UpdateCardioData(kg, reps); // reps = trajanje v minutah za kardio
+                }
             }
             catch (Exception exx)
             {

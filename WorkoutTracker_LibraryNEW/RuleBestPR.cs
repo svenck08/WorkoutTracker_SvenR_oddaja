@@ -15,24 +15,24 @@ namespace WorkoutTracker_LibraryNEW
         // override abstraktne metode — polimorfizem
         public override string Compute(List<WorkoutSession> sessions)
         {
-            SetEntry best = null; // referenca na objekt, ki bo hranil najboljsi set
-
+            SetEntry best = null;
             for (int i = 0; i < sessions.Count; i++)
             {
-                WorkoutSession ws = sessions[i]; // objekt WorkoutSession
-
+                WorkoutSession ws = sessions[i];
                 for (int j = 0; j < ws.Sets.Count; j++)
                 {
-                    // uporaba indekserja: ws[j] namesto ws.Sets[j]
+                    // uporaba int indekserja: ws[j]
                     SetEntry s = ws[j];
-
                     if (best == null || s.Kg > best.Kg)
                         best = s;
                 }
             }
-
             if (best == null) return "PR: /";
-            return "PR: " + best.ExerciseName + " " + best.Kg + "kg x " + best.Reps; // izpis podatkov iz objektov
+
+            // uporaba string indekserja — preverimo ali ima ta session se ta set
+            // to demonstrira smiselnost iskanja po imenu vaje
+            string prIme = best.ExerciseName;
+            return "PR: " + prIme + " " + best.Kg + "kg x " + best.Reps;
         }
     }
 }
